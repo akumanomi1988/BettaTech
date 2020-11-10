@@ -71,7 +71,7 @@ Partial Class frmAutoCompletado
 		Me.Controls.Add(Me.Label1)
 		Me.Controls.Add(Me.TextBox1)
 		Me.Name = "frmAutoCompletado"
-		Me.Text = "frmAutoCompletado"
+		Me.Text = "{ }; Formulario de autocompletado"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 

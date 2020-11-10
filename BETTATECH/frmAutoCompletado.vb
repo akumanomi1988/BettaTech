@@ -1,6 +1,4 @@
-﻿
-Imports System.IO
-Imports System.Windows.Forms
+﻿Imports System.Windows.Forms
 
 Class frmAutoCompletado
 	Private _ListaPalabras As List(Of String)
@@ -16,17 +14,19 @@ Class frmAutoCompletado
 		_CadenaPalabras = _CadenaPalabras.Replace("`", "")
 		_CadenaPalabras = _CadenaPalabras.Replace($"\", "")
 		_ListaPalabras = _CadenaPalabras.Split(",").ToList
-		_ListaPalabras.Sort()
+		_ListaPalabras.Sort() ' Creo que la lista de palabras ya viene ordenada, pero más vale prevenir
 	End Sub
 	Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
 		Cursor = Cursors.WaitCursor
 		ListBox1.Items.Clear()
-		ListBox1.Items.AddRange(FiltrarPalabras(TextBox1.Text).ToArray)
+		If Not TextBox1.Text.Equals(String.Empty) Then
+			ListBox1.Items.AddRange(FiltrarPalabras(TextBox1.Text).ToArray)
+		End If
 		ListBox1.SelectedItem = -1
 		Cursor = Cursors.Default
 	End Sub
 	Private Function FiltrarPalabras(texto As String) As List(Of String)
-		Return _ListaPalabras.FindAll(Function(x) x.StartsWith(texto))
+		Return _ListaPalabras.FindAll(Function(x) x.StartsWith(texto, StringComparison.InvariantCultureIgnoreCase))
 	End Function
 	Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
 		If ListBox1.SelectedIndex <> -1 Then
